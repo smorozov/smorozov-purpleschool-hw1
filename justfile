@@ -5,12 +5,9 @@
     uv run fastapi dev app/main.py
 
 @lint_check:
-    uv run ruff check . --fix
+    uv run ruff check .
 
 @lint_fix:
-    uv run ruff check . --fix
-
-@lint:
     uv run ruff check . --fix
 
 @format:
