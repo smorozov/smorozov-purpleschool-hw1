@@ -11,8 +11,9 @@ def get_post(post_id: int):
 
 @router.post("/")
 async def create_post(body: dict = Body()):
-    post_id = body["post_id"]
-    return f"Created Post with ID: {post_id}"
+    return {
+        "created": body
+    }
 
 @router.patch("/{post_id}")
 def update_post(post_id: int):
