@@ -1,11 +1,7 @@
 from fastapi import FastAPI
 
+from posts import routes as posts_routes
+
 app = FastAPI()
 
-counter = 1
-
-@app.get("/")
-def root():
-    global counter
-    counter += 1
-    return {"Counter": counter}
+app.include_router(posts_routes.router)
