@@ -4,13 +4,15 @@ from pydantic import BaseModel, Field, StringConstraints
 
 
 class PostPath(BaseModel):
-    post_id: int = Field(gt=0)
+    post_id: int = Field(gt=0, description="Идентификатор публикации", examples=[1])
 
 
 Content = Annotated[
     str,
     StringConstraints(strip_whitespace=True, min_length=1),
-    Field(description="Текст публикации."),
+    Field(
+        description="Текст публикации.",
+    ),
 ]
 
 
@@ -23,15 +25,15 @@ class PostUpdateRequest(BaseModel):
 
 
 class PostCreateResponse(BaseModel):
-    id: int
+    id: int = Field(description="Идентификатор публикации", examples=[1])
     content: str
 
 
 class PostGetResponse(BaseModel):
-    id: int
+    id: int = Field(description="Идентификатор публикации", examples=[1])
     content: str
 
 
 class PostUpdateResponse(BaseModel):
-    id: int
+    id: int = Field(description="Идентификатор публикации", examples=[1])
     content: str | None = None
