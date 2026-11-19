@@ -7,7 +7,7 @@ class PostPath(BaseModel):
     post_id: int = Field(gt=0)
 
 
-Content = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1)]
+Content = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1), Field(description="Текст публикации.")]
 
 
 class PostCreateRequest(BaseModel):
