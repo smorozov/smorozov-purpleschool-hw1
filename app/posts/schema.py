@@ -1,22 +1,19 @@
+from typing import Annotated
+
 from fastapi import HTTPException
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field, field_validator, StringConstraints
+
 
 class PostPath(BaseModel):
     post_id: int = Field(gt=0)
 
-class PostCreateRequest(BaseModel):
-    content: str
+Content = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1)]
 
-    @field_validator("content")
-    @classmethod
-    def content_not_empty(cls, value):
-        if not value.strip():
-            raise HTTPException(status_code=400, detail="Content cannot be empty")
-        return value
+class PostCreateRequest(BaseModel):
+    content: Content
 
 class PostUpdateRequest(BaseModel):
-    content: str | None = None
-
+    content: Content | None = None
 
 class PostCreateResponse(BaseModel):
     id: int
