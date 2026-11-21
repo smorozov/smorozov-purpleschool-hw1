@@ -1,10 +1,14 @@
 from typing import Annotated
 
+from fastapi import Depends
 from pydantic import BaseModel, Field, StringConstraints
 
 
 class PostPath(BaseModel):
     post_id: int = Field(gt=0, description="Идентификатор публикации", examples=[1])
+
+
+type TaskPathDeps = Annotated[PostPath, Depends()]
 
 
 Content = Annotated[
