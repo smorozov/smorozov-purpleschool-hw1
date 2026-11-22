@@ -2,7 +2,7 @@
     just --list
 
 @dev:
-    uv run fastapi dev app/main.py
+    uv run uvicorn app.main:app --reload --log-config log_config.yaml
 
 @lint_check:
     uv run ruff check .
