@@ -9,9 +9,11 @@ from app.posts.schema import (
     PostPath,
     PostUpdateRequest,
     PostUpdateResponse,
+    TaskPathDeps,
 )
+from app.posts.service import PostServiceDeps
 
-router = APIRouter(prefix="/posts", tags=["Posts"])
+router = APIRouter(prefix="/v1/posts", tags=["Posts"])
 
 
 @router.get(
@@ -21,8 +23,9 @@ router = APIRouter(prefix="/posts", tags=["Posts"])
     summary="Получает публикацию по ID",
     description="Получает детали публикации по ID. Если публикация не найдена, возвращает ошибку.",
 )
-def get_post(path: Annotated[PostPath, Depends(PostPath)]):
-    return PostGetResponse(id=path.post_id, content="Post content")
+def get_post(service: PostServiceDeps, path: TaskPathDeps):
+    res = service.get_post_by_id(path.post_id)
+    return PostGetResponse(id=res, content="Post content")
 
 
 @router.post(
