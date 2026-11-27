@@ -1,3 +1,4 @@
+import logging
 from typing import Annotated
 
 from fastapi import APIRouter, Depends
@@ -14,6 +15,7 @@ from app.posts.schema import (
 from app.posts.service import PostServiceDeps
 
 router = APIRouter(prefix="/v1/posts", tags=["Posts"])
+logger = logging.getLogger(__name__)
 
 
 @router.get(
@@ -24,6 +26,7 @@ router = APIRouter(prefix="/v1/posts", tags=["Posts"])
     description="Получает детали публикации по ID. Если публикация не найдена, возвращает ошибку.",
 )
 def get_post(service: PostServiceDeps, path: TaskPathDeps):
+    logger.info("Запрос публикации по ID: %s", extra={"post_id": path.post_id})
     res = service.get_post_by_id(path.post_id)
     return PostGetResponse(id=res, content="Post content")
 
