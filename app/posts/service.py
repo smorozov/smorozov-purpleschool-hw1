@@ -12,6 +12,9 @@ class PostService:
     def get_post_by_id(self, post_id: int) -> int:
         return self.repository.get_by_id(post_id)
 
+    async def create(self):
+        return await self.repository.create()
+
 
 def get_post_service(repository: PostRepositoryDeps) -> PostService:
     return PostService(repository)
